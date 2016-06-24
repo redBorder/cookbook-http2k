@@ -7,7 +7,7 @@
 # AFFERO GENERAL PUBLIC LICENSE, Version 3
 #
 
-cookbook_example_config "config" do
+http2k_config "config" do
   mystring "test"
   action :add
 end
