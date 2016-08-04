@@ -4,7 +4,7 @@
 #
 # Copyright 2016, http2k
 #
-# AFFERO GENERAL PUBLIC LICENSE V3
+# AFFERO GENERAL PUBLIC LICENSE, Version 3
 #
 
 http2k_config "config" do

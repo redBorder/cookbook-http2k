@@ -14,8 +14,9 @@ attribute :group, :kind_of => String, :default => "http2k"
 attribute :port, :kind_of => Fixnum, :default => 7980
 attribute :hosts, :kind_of => Array, :default => [node.name]
 attribute :kafka_hosts, :kind_of => Array, :default => [node.name]
-attribute :proxy_nodes, :kind_of => Array
-attribute :ipsg_nodes, :kind_of => Array
+attribute :proxy_nodes, :kind_of => Object
+attribute :ips_nodes, :kind_of => Object
+attribute :ipsg_nodes, :kind_of => Object
 attribute :organizations, :kind_of => Array
 attribute :locations_list, :kind_of => Array
 
