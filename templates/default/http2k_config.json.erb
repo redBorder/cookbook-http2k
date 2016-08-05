@@ -31,25 +31,30 @@
     },
     "sensors_uuids" : {
 <% inserted=false %>
-<% (@ipsg_nodes + @ips_nodes).each_with_index do |p, i| %>
-      <%= inserted ? "," : "" %>"<%= p["sensor_uuid"] %>": {
-<% inserted=true %>
-<% if !p["locations"]["organization_uuid"].nil? %>
-        "organization_uuid": "<%= p["locations"]["organization_uuid"] %>",
-<% end %>
-        "enrichment": {
-           "index_partitions": <%= [ 1, ( !p["index_partitions"].nil? ) ? p["index_partitions"].to_i : 5].max %>
-          ,"index_replicas": <%= [ 1, ( !p["index_replicas"].nil? ) ? p["index_replicas"].to_i : 1].max %>
-          ,"sensor_uuid": "<%= p["sensor_uuid"] %>"
-<% @locations_list.each do |ss| %>
-<% if !p["locations"][ss].nil? and p["locations"][ss]!="" %>
-          ,"<%= ss %>": "<%= p["locations"][ss] %>"
-<% end %>
-<% end %>
+<% ips_arr = [] %>
+<% ips_arr << @ips_nodes if !@ips_nodes.nil? %>
+<% ips_arr << @ipsg_nodes if !@ipsg_nodes.nil? %>
+<% ips_arr.each do |ips_n| %>
+  <% ips_n.each do |ips,p| %>
+          <%= inserted ? "," : "" %>"<%= p["sensor_uuid"] %>": {
+    <% inserted = true %>
+  <% if !p["locations"]["organization_uuid"].nil? %>
+          "organization_uuid": "<%= p["locations"]["organization_uuid"] %>",
+  <% end %>
+          "enrichment": {
+             "index_partitions": <%= [ 1, ( !p["index_partitions"].nil? ) ? p["index_partitions"].to_i : 5].max %>
+            ,"index_replicas": <%= [ 1, ( !p["index_replicas"].nil? ) ? p["index_replicas"].to_i : 1].max %>
+            ,"sensor_uuid": "<%= p["sensor_uuid"] %>"
+  <% @locations_list.each do |ss| %>
+  <% if !p["locations"][ss].nil? and p["locations"][ss]!="" %>
+            ,"<%= ss %>": "<%= p["locations"][ss] %>"
+  <% end %>
+  <% end %>
+          }
         }
-      }
+  <% end %>
 <% end %>
-<% @proxy_nodes.each_with_index do |p, i| %>
+<% @proxy_nodes.each do |proxy,p| %>
       <%= inserted ? "," : "" %>"<%= p["sensor_uuid"] %>": {
 <% inserted=true %>
 <% if !p["organization_uuid"].nil? %>

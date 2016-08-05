@@ -11,7 +11,7 @@ action :add do
     group = new_resource.group
     port = new_resource.port
     kafka_hosts = new_resource.kafka_hosts
-    http2k_hosts = new_resource.http2k_hosts
+    hosts = new_resource.hosts
     proxy_nodes = new_resource.proxy_nodes
     ipsg_nodes = new_resource.ipsg_nodes
     ips_nodes = new_resource.ips_nodes
@@ -42,12 +42,12 @@ action :add do
 
     template "/etc/http2k/config.json" do
       source "http2k_config.json.erb"
+      cookbook "http2k"
       owner user
       group group
       mode 0644
       variables(
                  :kafka_hosts => kafka_hosts,
-                 :http2k_hosts => http2k_hosts,
                  :memory => memory,
                  :proxy_nodes => proxy_nodes,
                  :ips_nodes => ips_nodes,
@@ -65,7 +65,7 @@ action :add do
      
     Chef::Log.info("Http2k has been configurated correctly.")
   rescue => e
-    Chef::Log.error(e.message)
+    Chef::Log.error(e)
   end
 end
 
@@ -109,7 +109,7 @@ action :remove do
 
     Chef::Log.info("http2k has been deleted correctly.")
   rescue => e
-    Chef::Log.error(e.message)
+    Chef::Log.error(e)
   end
 end
 
