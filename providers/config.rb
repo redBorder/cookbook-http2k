@@ -47,6 +47,7 @@ action :add do
       group group
       mode 0644
       variables(
+   	         :port => port,	
                  :kafka_hosts => kafka_hosts,
                  :memory => memory,
                  :proxy_nodes => proxy_nodes,
