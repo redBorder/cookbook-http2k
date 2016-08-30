@@ -18,10 +18,11 @@ action :add do
     organizations = new_resource.organizations
     locations_list = new_resource.locations_list
 
-#    yum_package "redborder-http2k" do
-#      action :upgrade
-#      flush_cache [ :before ]
-#    end
+    # install package
+    yum_package "redborder-http2k" do
+      action :upgrade
+      flush_cache [ :before ]
+    end
 
     user user do
       action :create
@@ -103,10 +104,11 @@ action :remove do
         recursive true
       end
     end
-   
-#    yum_package 'redborder-http2k' do
-#      action :remove
-#    end
+
+    # removing package   
+    yum_package 'redborder-http2k' do
+      action :remove
+    end
 
     Chef::Log.info("http2k has been deleted correctly.")
   rescue => e
