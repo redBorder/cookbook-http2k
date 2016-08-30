@@ -1,6 +1,13 @@
 cookbook http2k CHANGELOG
 ==========================
 
+0.0.5
+-----
+- [cjmateos]
+ - c0d9cfe Protection against nil values in organizations and proxy_nodes
+ - c7671d6 Enable package installation
+ - 058548e Send port var to http2k_config.json
+
 0.0.4
 -----
 - [ejimenez] 
