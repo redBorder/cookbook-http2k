@@ -1,6 +1,12 @@
 cookbook http2k CHANGELOG
 ==========================
 
+0.0.6
+-----
+- [ejimenez]
+  - 19b1e32 Restart service when the config file is changed
+  - 684b45f Add domain to config template 
+
 0.0.5
 -----
 - [cjmateos]
