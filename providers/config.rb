@@ -59,6 +59,7 @@ action :add do
                  :organizations => organizations,
                  :locations_list => locations_list
                )
+      notifies :restart, "service[http2k]", :delayed
     end
 
     service "http2k" do
