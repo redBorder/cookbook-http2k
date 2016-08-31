@@ -10,6 +10,7 @@ action :add do
     user = new_resource.user
     group = new_resource.group
     port = new_resource.port
+    domain = new_resource.domain
     kafka_hosts = new_resource.kafka_hosts
     hosts = new_resource.hosts
     proxy_nodes = new_resource.proxy_nodes
@@ -49,6 +50,7 @@ action :add do
       mode 0644
       variables(
    	         :port => port,	
+   	         :domain => domain,
                  :kafka_hosts => kafka_hosts,
                  :memory => memory,
                  :proxy_nodes => proxy_nodes,
