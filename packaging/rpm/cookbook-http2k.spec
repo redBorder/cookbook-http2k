@@ -20,6 +20,7 @@ Source0: %{name}-%{version}.tar.gz
 mkdir -p %{buildroot}/var/chef/cookbooks/http2k
 cp -f -r  resources/* %{buildroot}/var/chef/cookbooks/http2k/
 chmod -R 0755 %{buildroot}/var/chef/cookbooks/http2k
+install -D -m 0644 README.md %{buildroot}/var/chef/cookbooks/http2k/README.md
 
 %pre
 
@@ -28,6 +29,8 @@ chmod -R 0755 %{buildroot}/var/chef/cookbooks/http2k
 %files
 %defattr(0755,root,root)
 /var/chef/cookbooks/http2k
+%defattr(0644,root,root)
+/var/chef/cookbooks/http2k/README.md
 
 %doc
 
