@@ -29,6 +29,8 @@ install -D -m 0644 README.md %{buildroot}/var/chef/cookbooks/http2k/README.md
 %files
 %defattr(0755,root,root)
 /var/chef/cookbooks/http2k
+%defattr(0644,root,root)
+/var/chef/cookbooks/http2k/README.md
 
 %doc
 
