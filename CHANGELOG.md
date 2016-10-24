@@ -3,9 +3,15 @@ cookbook http2k CHANGELOG
 
 0.0.6
 -----
+- [arodriguez]
+  - 7bebe8a Add readme in cookbook installation
+  - 1854607 Add makefile to root
+  - 776c314 Add makefile and spec to generate rpm
+  - ba5b3c2 Move coobook to resources folder
 - [ejimenez]
+  - a4d25d1 updated changelog for version 0.0.6
   - 19b1e32 Restart service when the config file is changed
-  - 684b45f Add domain to config template 
+  - 684b45f Add domain to config template
 
 0.0.5
 -----
@@ -16,7 +22,7 @@ cookbook http2k CHANGELOG
 
 0.0.4
 -----
-- [ejimenez] 
+- [ejimenez]
  - verbose mode in errors
  - Add cookbook property to templates resources
  - Fix wrong iteration logic on config.json template
@@ -32,4 +38,3 @@ cookbook http2k CHANGELOG
 0.0.1
 -----
 - [ejimenez] - Skel creation
-
