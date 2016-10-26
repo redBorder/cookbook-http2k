@@ -2,7 +2,7 @@
   "listeners":[
     {"proto":"http", "port": <%= @port %>, "num_threads":<%= [ node["cpu"]["total"].to_i - 1, 1].max %>, "mode":"epoll", "redborder_uri":true, "decode_as":"rb_http2k", "connection_memory_limit": 131072, "connection_timeout": 60, "per_ip_connection_limit": 0, "connection_limit": <%= ( [ node["cpu"]["total"].to_i - 1, 1].max*512 ) %>}
   ],
-  "brokers":"<%= @kafka_hosts.nil? ? "kafka.#{ @domain }" : (@kafka_hosts.map{|x| (x == node.name ? "127.0.0.1" : "#{x}.#{ @domain }" ) }.join(",")) %>",
+  "brokers":"<%= @kafka_hosts %>",
   "rdkafka.socket.max.fails":"3",
   "rdkafka.socket.keepalive.enable":"true",
   "rdkafka.queue.buffering.max.messages":"<%= (@memory.nil? ? 1000 : [ @memory/10, 1000].max ) %>",
@@ -67,7 +67,7 @@
            "index_partitions": <%= [ 1, ( !p["index_partitions"].nil? ) ? p["index_partitions"].to_i : 5].max %>
           ,"index_replicas": <%= [ 1, ( !p["index_replicas"].nil? ) ? p["index_replicas"].to_i : 1].max %>
           ,"proxy_uuid": "<%= p["sensor_uuid"] %>"
-<% 
+<%
 insert_uuid=true
 if !p["sensors_mapping"].nil?
   p["sensors_mapping"].each do |k,v|
@@ -92,7 +92,7 @@ end
     "topics" : {
       "rb_flow": {
         "partition_key":"client_mac",
-        "partition_algo":"mac" 
+        "partition_algo":"mac"
       },
       "rb_loc": {},
       "rb_event": {},
