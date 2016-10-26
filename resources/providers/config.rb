@@ -12,7 +12,6 @@ action :add do
     port = new_resource.port
     domain = new_resource.domain
     kafka_hosts = new_resource.kafka_hosts
-    hosts = new_resource.hosts
     proxy_nodes = new_resource.proxy_nodes
     ipsg_nodes = new_resource.ipsg_nodes
     ips_nodes = new_resource.ips_nodes
@@ -38,7 +37,7 @@ action :add do
 
     directory "/etc/http2k" do
       owner user
-      group group 
+      group group
       mode 0755
     end
 
@@ -48,17 +47,9 @@ action :add do
       owner user
       group group
       mode 0644
-      variables(
-   	         :port => port,	
-   	         :domain => domain,
-                 :kafka_hosts => kafka_hosts,
-                 :memory => memory,
-                 :proxy_nodes => proxy_nodes,
-                 :ips_nodes => ips_nodes,
-                 :ipsg_nodes => ipsg_nodes,
-                 :organizations => organizations,
-                 :locations_list => locations_list
-               )
+      variables(:port => port, :domain => domain, :kafka_hosts => kafka_hosts, :memory => memory,
+             :proxy_nodes => proxy_nodes, :ips_nodes => ips_nodes, :ipsg_nodes => ipsg_nodes,
+             :organizations => organizations, :locations_list => locations_list)
       notifies :restart, "service[http2k]", :delayed
     end
 
@@ -67,7 +58,7 @@ action :add do
       supports :status => true, :reload => true, :restart => true, :start => true, :enable => true
       action [:enable,:start]
     end
-     
+
     Chef::Log.info("Http2k has been configurated correctly.")
   rescue => e
     Chef::Log.error(e)
@@ -87,19 +78,19 @@ action :remove do
     template_list = [
                       "/etc/http2k/config.json"
                     ]
-  
+
     dir_list = [
                  "/etc/http2k",
                  logdir
                ]
-  
+
     # removing templates
     template_list.each do |temp|
       file temp do
         action :delete
       end
     end
-  
+
     # removing directories
     dir_list.each do |dirs|
       directory dirs do
@@ -108,7 +99,7 @@ action :remove do
       end
     end
 
-    # removing package   
+    # removing package
     yum_package 'redborder-http2k' do
       action :remove
     end
@@ -118,4 +109,3 @@ action :remove do
     Chef::Log.error(e)
   end
 end
-
