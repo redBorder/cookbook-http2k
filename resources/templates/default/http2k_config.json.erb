@@ -9,11 +9,6 @@
   "rdkafka.queue.buffering.max.ms":"10000",
   "rdkafka.message.send.max.retries":"0",
   "rdkafka.retry.backoff.ms":"100",
-  "rb_http2k_config": {
-    "organizations_sync": {
-      "topics": ["rb_monitor"],
-      "interval_s": 25
-    },
     "organizations_uuids": {
 <% inserted=false %>
 <% if !@organizations.nil? %>
@@ -90,10 +85,7 @@ end
 <% end %>
     },
     "topics" : {
-      "rb_flow": {
-        "partition_key":"client_mac",
-        "partition_algo":"mac"
-      },
+      "rb_flow": {},
       "rb_loc": {},
       "rb_event": {},
       "rb_nmsp": {},
