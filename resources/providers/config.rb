@@ -59,7 +59,7 @@ action :add do
       action [:enable,:start]
     end
 
-    Chef::Log.info("Http2k has been configurated correctly.")
+    Chef::Log.info("http2k cookbook has been processed")
   rescue => e
     Chef::Log.error(e)
   end
@@ -104,8 +104,47 @@ action :remove do
       action :remove
     end
 
-    Chef::Log.info("http2k has been deleted correctly.")
+    Chef::Log.info("http2k cookbook has been processed")
   rescue => e
     Chef::Log.error(e)
+  end
+end
+
+action :register do
+  begin
+    if !node["http2k"]["registered"]
+      query = {}
+      query["ID"] = "http2k-#{node["hostname"]}"
+      query["Name"] = "http2k"
+      query["Address"] = "#{node["ipaddress"]}"
+      query["Port"] = 7980
+      json_query = Chef::JSONCompat.to_json(query)
+
+      execute 'Register service in consul' do
+         command "curl http://localhost:8500/v1/agent/service/register -d '#{json_query}' &>/dev/null"
+         action :nothing
+      end.run_action(:run)
+
+      node.set["http2k"]["registered"] = true
+      Chef::Log.info("http2k service has been registered to consul")
+    end
+  rescue => e
+    Chef::Log.error(e.message)
+  end
+end
+
+action :deregister do
+  begin
+    if node["http2k"]["registered"]
+      execute 'Deregister service in consul' do
+        command "curl http://localhost:8500/v1/agent/service/deregister/http2k-#{node["hostname"]} &>/dev/null"
+        action :nothing
+      end.run_action(:run)
+
+      node.set["http2k"]["registered"] = false
+      Chef::Log.info("http2k service has been deregistered to consul")
+    end
+  rescue => e
+    Chef::Log.error(e.message)
   end
 end
