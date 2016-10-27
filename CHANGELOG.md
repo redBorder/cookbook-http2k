@@ -1,8 +1,21 @@
 cookbook http2k CHANGELOG
 ==========================
 
+0.0.7
+-----
+- [cjmateos]
+  - Update version to 0.0.7
+
 0.0.6
 -----
+- [cjmateos]
+  - f742226 add consul registering support
+  - 9b94053 Fix config temaplate
+  - 67b7803 Update config template
+  - 397dea3 update provider and resource
+  - 551b83b Delete unused attributes
+  - ceac5fa Delete thrash files
+  - 50fa6ce update metadata and changelog
 - [arodriguez]
   - 7bebe8a Add readme in cookbook installation
   - 1854607 Add makefile to root
