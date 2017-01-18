@@ -85,24 +85,24 @@ action :remove do
                ]
 
     # removing templates
-    template_list.each do |temp|
-      file temp do
-        action :delete
-      end
-    end
+    #template_list.each do |temp|
+    #  file temp do
+    #    action :delete
+    #  end
+    #end
 
     # removing directories
-    dir_list.each do |dirs|
-      directory dirs do
-        action :delete
-        recursive true
-      end
-    end
+    #dir_list.each do |dirs|
+    #  directory dirs do
+    #    action :delete
+    #    recursive true
+    #  end
+    #end
 
     # removing package
-    yum_package 'redborder-http2k' do
-      action :remove
-    end
+    #yum_package 'redborder-http2k' do
+    #  action :remove
+    #end
 
     Chef::Log.info("http2k cookbook has been processed")
   rescue => e
