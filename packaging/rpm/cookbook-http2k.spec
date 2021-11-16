@@ -45,5 +45,8 @@ esac
 %doc
 
 %changelog
+* Tue Nov 16 2021 Jordi Hdez <jhernandez@redborder.com> - 1.0.1-1
+- first spec version
+
 * Tue Oct 18 2016 Alberto Rodríguez <arodriguez@redborder.com> - 1.0.0-1
 - first spec version
