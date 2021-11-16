@@ -3,66 +3,78 @@
     {"proto":"http", "port": <%= @port %>, "num_threads":<%= [ node["cpu"]["total"].to_i - 1, 1].max %>, "mode":"epoll", "redborder_uri":true, "decode_as":"rb_http2k", "connection_memory_limit": 131072, "connection_timeout": 60, "per_ip_connection_limit": 0, "connection_limit": <%= ( [ node["cpu"]["total"].to_i - 1, 1].max*512 ) %>}
   ],
   "brokers":"<%= @kafka_hosts %>",
+  "n2kafka_id": "http2k",
   "rdkafka.socket.max.fails":"3",
   "rdkafka.socket.keepalive.enable":"true",
   "rdkafka.queue.buffering.max.messages":"<%= (@memory.nil? ? 1000 : [ @memory/10, 1000].max ) %>",
   "rdkafka.queue.buffering.max.ms":"10000",
   "rdkafka.message.send.max.retries":"0",
   "rdkafka.retry.backoff.ms":"100",
-    "organizations_uuids": {
-<% inserted=false %>
-<% if !@organizations.nil? %>
-<% @organizations.each do |x| %>
-<% if x.override_attributes["redborder"]["megabytes_limit"].nil? or (!x.override_attributes["redborder"]["megabytes_limit"].nil? and x.override_attributes["redborder"]["megabytes_limit"].to_i > 0 ) %>
-      <%= inserted ? "," : "" %>"<%= x.override_attributes["redborder"]["organization_uuid"] %>": {
-<% if !x.override_attributes["redborder"]["megabytes_limit"].nil? %>
-        "limits": {
-          "bytes": <%= (x.override_attributes["redborder"]["megabytes_limit"].to_i * 1024 * 1024) %>
-        }
-<% end %>
+  "rb_http2k_config": {
+    "organizations_sync": {
+      "topics": ["rb_monitor"],
+      "put_url": "http://erchef.<%= node["redborder"]["cdomain"] %>:7979/",
+      "topics": ["rb_http2k_sync","rb_monitor"],
+      "interval_s": 25,
+      "clean_on": {
+        "timestamp_s_mod":86400,
+        "timestamp_s_offset":86399
       }
-<% inserted=true %>
-<% end %>
-<% end %>
-<% end %>
     },
-    "sensors_uuids" : {
-<% inserted=false %>
-<% ips_arr = [] %>
-<% ips_arr << @ips_nodes if !@ips_nodes.nil? %>
-<% ips_arr << @ipsg_nodes if !@ipsg_nodes.nil? %>
-<% ips_arr.each do |ips_n| %>
-  <% ips_n.each do |ips,p| %>
-          <%= inserted ? "," : "" %>"<%= p["sensor_uuid"] %>": {
-    <% inserted = true %>
-  <% if !p["locations"]["organization_uuid"].nil? %>
-          "organization_uuid": "<%= p["locations"]["organization_uuid"] %>",
-  <% end %>
-          "enrichment": {
-             "index_partitions": <%= [ 1, ( !p["index_partitions"].nil? ) ? p["index_partitions"].to_i : 5].max %>
-            ,"index_replicas": <%= [ 1, ( !p["index_replicas"].nil? ) ? p["index_replicas"].to_i : 1].max %>
-            ,"sensor_uuid": "<%= p["sensor_uuid"] %>"
-  <% @locations_list.each do |ss| %>
-  <% if !p["locations"][ss].nil? and p["locations"][ss]!="" %>
-            ,"<%= ss %>": "<%= p["locations"][ss] %>"
-  <% end %>
-  <% end %>
-          }
+    "organizations_uuids": {
+      <% inserted=false %>
+      <% if !@organizations.nil? %>
+      <% @organizations.each do |x| %>
+      <% if x.override_attributes["redborder"]["megabytes_limit"].nil? or (!x.override_attributes["redborder"]["megabytes_limit"].nil? and x.override_attributes["redborder"]["megabytes_limit"].to_i > 0 ) %>
+      <%= inserted ? "," : "" %>"<%= x.override_attributes["redborder"]["organization_uuid"] %>": {
+        <% if !x.override_attributes["redborder"]["megabytes_limit"].nil? %>
+        "limits": {
+          "bytes":  <%= (x.override_attributes["redborder"]["megabytes_limit"].to_i * 1024 * 1024) %>
         }
-  <% end %>
-<% end %>
-<% if !@proxy_nodes.nil? %>
-<% @proxy_nodes.each do |proxy,p| %>
+        <% end %>
+      }
+      <% inserted=true %>
+      <% end %>
+      <% end %>
+      <% end %>
+    },
+    "sensors_uuids": {
+      <% inserted=false %>
+      <% ips_arr = [] %>
+      <% ips_arr << @ips_nodes if !@ips_nodes.nil? %>
+      <% ips_arr << @ipsg_nodes if !@ipsg_nodes.nil? %>
+      <% ips_arr.each do |ips_n| %>
+      <% ips_n.each do |ips,p| %>
       <%= inserted ? "," : "" %>"<%= p["sensor_uuid"] %>": {
-<% inserted=true %>
-<% if !p["organization_uuid"].nil? %>
-        "organization_uuid": "<%= p["organization_uuid"] %>",
-<% end %>
+        <% inserted = true %>
+        <% if !p["locations"]["organization_uuid"].nil? %>
+        "organization_uuid": "<%= p["locations"]["organization_uuid"] %>",
+        <% end %>
         "enrichment": {
-           "index_partitions": <%= [ 1, ( !p["index_partitions"].nil? ) ? p["index_partitions"].to_i : 5].max %>
-          ,"index_replicas": <%= [ 1, ( !p["index_replicas"].nil? ) ? p["index_replicas"].to_i : 1].max %>
-          ,"proxy_uuid": "<%= p["sensor_uuid"] %>"
-<%
+          "index_partitions": <%= [ 1, ( !p["index_partitions"].nil? ) ? p["index_partitions"].to_i : 5].max %>,
+          "index_replicas": <%= [ 1, ( !p["index_replicas"].nil? ) ? p["index_replicas"].to_i : 1].max %>,
+          "sensor_uuid":  "<%= p["sensor_uuid"] %>"
+          <% @locations_list.each do |ss| %>
+          <% if !p["locations"][ss].nil? and p["locations"][ss]!="" %>,
+          "<%= ss %>": "<%= p["locations"][ss] %>"
+          <% end %>
+          <% end %>
+        }
+      }
+      <% end %>
+      <% end %>
+      <% if !@proxy_nodes.nil? %>
+      <% @proxy_nodes.each do |proxy,p| %>
+      <%= inserted ? "," : "" %>"<%= p["sensor_uuid"] %>": {
+        <% inserted=true %>
+        <% if !p["organization_uuid"].nil? %>
+        "organization_uuid": "<%= p["organization_uuid"] %>",
+        <% end %>
+        "enrichment": {
+          "index_partitions": <%= [ 1, ( !p["index_partitions"].nil? ) ? p["index_partitions"].to_i : 5].max %>,
+          "index_replicas": <%= [ 1, ( !p["index_replicas"].nil? ) ? p["index_replicas"].to_i : 1].max %>,
+          "proxy_uuid": "<%= p["sensor_uuid"] %>"
+          <%
 insert_uuid=true
 if !p["sensors_mapping"].nil?
   p["sensors_mapping"].each do |k,v|
@@ -71,20 +83,20 @@ if !p["sensors_mapping"].nil?
 end
 
 %>
-<% if insert_uuid %>
-          ,"sensor_uuid": "<%= p["sensor_uuid"] %>"
-<% end %>
-<% @locations_list.each do |ss| %>
-<% if !p[ss].nil? and p[ss]!="" %>
-          ,"<%= ss %>": "<%= p[ss] %>"
-<% end %>
-<% end %>
+        <% if insert_uuid %>
+        ,"sensor_uuid": "<%= p["sensor_uuid"] %>"
+        <% end %>
+        <% @locations_list.each do |ss| %>
+        <% if !p[ss].nil? and p[ss]!="" %>
+        ,"<%= ss %>": "<%= p[ss] %>"
+        <% end %>
+        <% end %>
         }
       }
-<% end %>
-<% end %>
+      <% end %>
+      <% end %>
     },
-    "topics" : {
+    "topics": {
       "rb_flow": {},
       "rb_loc": {},
       "rb_event": {},

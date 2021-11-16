@@ -41,6 +41,9 @@ action :add do
       mode 0755
     end
 
+    # Fill organization array
+    #organizations = get_organization_uuid
+
     template "/etc/http2k/config.json" do
       source "http2k_config.json.erb"
       cookbook "http2k"
