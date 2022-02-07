@@ -13,7 +13,7 @@
   "rb_http2k_config": {
     "organizations_sync": {
       "topics": ["rb_monitor"],
-      "put_url": "http://erchef.<%= node["redborder"]["cdomain"] %>:7979/",
+      "put_url": "http://erchef.service:7979/",
       "topics": ["rb_http2k_sync","rb_monitor"],
       "interval_s": 25,
       "clean_on": {
@@ -98,6 +98,7 @@ end
     },
     "topics": {
       "rb_flow": {},
+      "rb_bi": {},
       "rb_loc": {},
       "rb_event": {},
       "rb_nmsp": {},
@@ -106,7 +107,9 @@ end
       "rb_social": {},
       "rb_monitor": {},
       "rb_iot": {},
-      "rb_vault": {}
+      "rb_vault": {},
+      "sflow": {},
+      "rb_scanner": {}
     }
   }
 }
