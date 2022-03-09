@@ -3,6 +3,8 @@
 # Provider:: config
 #
 
+include Http2k::Helper
+
 action :add do
   begin
     memory = new_resource.memory
@@ -56,6 +58,16 @@ action :add do
       notifies :restart, "service[http2k]", :delayed
     end
 
+    template "/etc/nginx/conf.d/http2k.conf" do
+      source "http2k.conf.erb"
+      owner "nginx"
+      group "nginx"
+      mode 0644
+      cookbook "http2k"
+      variables(:http2k_port => port)
+      notifies :restart, "service[nginx]"
+    end
+
     service "http2k" do
       service_name "http2k"
       supports :status => true, :reload => true, :restart => true, :start => true, :enable => true
@@ -65,6 +77,41 @@ action :add do
     Chef::Log.info("http2k cookbook has been processed")
   rescue => e
     Chef::Log.error(e)
+  end
+end
+
+action :configure_certs do
+  begin
+    domain = new_resource.domain
+    json_cert = nginx_certs("http2k",domain)
+
+    template "/etc/nginx/ssl/http2k.crt" do
+      source "cert.crt.erb"
+      owner "nginx"
+      group "nginx"
+      mode 0644
+      retries 2
+      cookbook "http2k"
+      not_if {json_cert.empty?}
+      variables(:crt => json_cert["http2k_crt"])
+      action :create
+    end
+
+    template "/etc/nginx/ssl/http2k.key" do
+      source "cert.key.erb"
+      owner "nginx"
+      group "nginx"
+      mode 0644
+      retries 2
+      cookbook "http2k"
+      not_if {json_cert.empty?}
+      variables(:key => json_cert["http2k_key"])
+      action :create
+    end
+
+    Chef::Log.info("Certs for service webui has been processed")
+  rescue => e
+    Chef::Log.error(e.message)
   end
 end
 
