@@ -3,7 +3,7 @@
 ####################################################
 
 upstream http2k {
-    server 127.0.0.1:<%= @http2k_port %> weight=6 max_fails=3 fail_timeout=5s;
+   server 127.0.0.1:<%= @http2k_port %> weight=6 max_fails=3 fail_timeout=5s;
   }
 
 server {
