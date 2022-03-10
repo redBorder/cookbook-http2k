@@ -8,5 +8,5 @@
 #
 
 http2k_config "config" do
-  action :add
+  action [:add, :register, :configure_certs]
 end

@@ -3,7 +3,7 @@
 # Resource:: config
 #
 
-actions :add, :remove, :register, :deregister
+actions :add, :remove, :register, :deregister, :configure_certs
 default_action :add
 
 attribute :domain, :kind_of => String, :default => "redborder.cluster"

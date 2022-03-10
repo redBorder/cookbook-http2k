@@ -66,6 +66,7 @@ action :add do
       cookbook "http2k"
       variables(:http2k_port => port)
       notifies :restart, "service[nginx]"
+      only_if { ::File.directory?("/etc/nginx/conf.d") }
     end
 
     service "http2k" do
@@ -92,9 +93,10 @@ action :configure_certs do
       mode 0644
       retries 2
       cookbook "http2k"
-      not_if {json_cert.empty?}
       variables(:crt => json_cert["http2k_crt"])
       action :create
+      not_if {json_cert.empty?}
+      only_if { ::File.directory?("/etc/nginx/ssl") }
     end
 
     template "/etc/nginx/ssl/http2k.key" do
@@ -104,12 +106,13 @@ action :configure_certs do
       mode 0644
       retries 2
       cookbook "http2k"
-      not_if {json_cert.empty?}
       variables(:key => json_cert["http2k_key"])
       action :create
+      not_if {json_cert.empty?}
+      only_if { ::File.directory?("/etc/nginx/ssl") }
     end
 
-    Chef::Log.info("Certs for service webui has been processed")
+    Chef::Log.info("Certs for service http2k have been processed")
   rescue => e
     Chef::Log.error(e.message)
   end
