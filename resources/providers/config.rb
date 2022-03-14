@@ -58,17 +58,6 @@ action :add do
       notifies :restart, "service[http2k]", :delayed
     end
 
-    template "/etc/nginx/conf.d/http2k.conf" do
-      source "http2k.conf.erb"
-      owner "nginx"
-      group "nginx"
-      mode 0644
-      cookbook "http2k"
-      variables(:http2k_port => port)
-      notifies :restart, "service[nginx]"
-      only_if { ::File.directory?("/etc/nginx/conf.d") }
-    end
-
     service "http2k" do
       service_name "http2k"
       supports :status => true, :reload => true, :restart => true, :start => true, :enable => true
@@ -78,6 +67,26 @@ action :add do
     Chef::Log.info("http2k cookbook has been processed")
   rescue => e
     Chef::Log.error(e)
+  end
+end
+
+action :add_http2k_conf_nginx do
+  begin
+    port = new_resource.port
+
+    template "/etc/nginx/conf.d/http2k.conf" do
+      source "http2k.conf.erb"
+      owner "nginx"
+      group "nginx"
+      mode 0644
+      cookbook "http2k"
+      variables(:http2k_port => port)
+      notifies :restart, "service[nginx]"
+    end
+
+    Chef::Log.info("nginx http2k configuration has been processed")
+  rescue => e
+    Chef::Log.error(e.message)
   end
 end
 
@@ -96,7 +105,6 @@ action :configure_certs do
       variables(:crt => json_cert["http2k_crt"])
       action :create
       not_if {json_cert.empty?}
-      only_if { ::File.directory?("/etc/nginx/ssl") }
     end
 
     template "/etc/nginx/ssl/http2k.key" do
@@ -109,7 +117,6 @@ action :configure_certs do
       variables(:key => json_cert["http2k_key"])
       action :create
       not_if {json_cert.empty?}
-      only_if { ::File.directory?("/etc/nginx/ssl") }
     end
 
     Chef::Log.info("Certs for service http2k have been processed")
