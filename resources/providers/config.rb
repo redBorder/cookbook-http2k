@@ -17,6 +17,7 @@ action :add do
     proxy_nodes = new_resource.proxy_nodes
     ipsg_nodes = new_resource.ipsg_nodes
     ips_nodes = new_resource.ips_nodes
+    ipscp_nodes = new_resource.ipscp_nodes
     organizations = new_resource.organizations
     locations_list = new_resource.locations_list
 
@@ -53,7 +54,7 @@ action :add do
       group group
       mode 0644
       variables(:port => port, :domain => domain, :kafka_hosts => kafka_hosts, :memory => memory,
-             :proxy_nodes => proxy_nodes, :ips_nodes => ips_nodes, :ipsg_nodes => ipsg_nodes,
+             :proxy_nodes => proxy_nodes, :ips_nodes => ips_nodes, :ipsg_nodes => ipsg_nodes, :ipscp_nodes => ipscp_nodes,
              :organizations => organizations, :locations_list => locations_list)
       notifies :restart, "service[http2k]", :delayed
     end
