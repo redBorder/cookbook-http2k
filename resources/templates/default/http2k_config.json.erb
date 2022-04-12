@@ -43,6 +43,7 @@
       <% ips_arr = [] %>
       <% ips_arr << @ips_nodes if !@ips_nodes.nil? %>
       <% ips_arr << @ipsg_nodes if !@ipsg_nodes.nil? %>
+      <% ips_arr << @ipscp_nodes if !@ipscp_nodes.nil? %>
       <% ips_arr.each do |ips_n| %>
       <% ips_n.each do |ips,p| %>
       <%= inserted ? "," : "" %>"<%= p["sensor_uuid"] %>": {
