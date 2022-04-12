@@ -16,5 +16,6 @@ attribute :kafka_hosts, :kind_of => Array, :default => "kafka.service"
 attribute :proxy_nodes, :kind_of => Object
 attribute :ips_nodes, :kind_of => Object
 attribute :ipsg_nodes, :kind_of => Object
+attribute :ipscp_nodes, :kind_of => Object
 attribute :organizations, :kind_of => Array
 attribute :locations_list, :kind_of => Array
