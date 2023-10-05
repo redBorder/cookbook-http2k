@@ -22,7 +22,7 @@ action :add do
     locations_list = new_resource.locations_list
 
     # install package
-    yum_package "redborder-http2k" do
+    dnf_package "redborder-http2k" do
       action :upgrade
       flush_cache [ :before ]
     end
@@ -161,7 +161,7 @@ action :remove do
     #end
 
     # removing package
-    #yum_package 'redborder-http2k' do
+    #dnf_package 'redborder-http2k' do
     #  action :remove
     #end
 
