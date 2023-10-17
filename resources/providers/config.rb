@@ -77,6 +77,12 @@ action :add_http2k_conf_nginx do
   begin
     port = new_resource.port
 
+    service "nginx" do
+      service_name "nginx"
+      supports :status => true, :reload => true, :restart => true, :start => true, :enable => true
+      action :nothing
+    end
+
     template "/etc/nginx/conf.d/http2k.conf" do
       source "http2k.conf.erb"
       owner "nginx"
