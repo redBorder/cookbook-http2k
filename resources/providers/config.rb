@@ -194,7 +194,7 @@ action :register do
          action :nothing
       end.run_action(:run)
 
-      node.default["http2k"]["registered"] = true
+      node.normal["http2k"]["registered"] = true
       Chef::Log.info("http2k service has been registered to consul")
     end
   rescue => e
@@ -210,7 +210,7 @@ action :deregister do
         action :nothing
       end.run_action(:run)
 
-      node.default["http2k"]["registered"] = false
+      node.normal["http2k"]["registered"] = false
       Chef::Log.info("http2k service has been deregistered to consul")
     end
   rescue => e
