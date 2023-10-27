@@ -22,13 +22,15 @@ action :add do
     locations_list = new_resource.locations_list
 
     # install package
-    yum_package "redborder-http2k" do
+    dnf_package "redborder-http2k" do
       action :upgrade
       flush_cache [ :before ]
     end
 
-    user user do
-      action :create
+    execute "create_user" do
+      command "/usr/sbin/useradd #{user}"
+      ignore_failure true
+      not_if "getent passwd #{user}"
     end
 
     directory logdir do
@@ -74,6 +76,12 @@ end
 action :add_http2k_conf_nginx do
   begin
     port = new_resource.port
+
+    service "nginx" do
+      service_name "nginx"
+      supports :status => true, :reload => true, :restart => true, :start => true, :enable => true
+      action :nothing
+    end
 
     template "/etc/nginx/conf.d/http2k.conf" do
       source "http2k.conf.erb"
@@ -161,7 +169,7 @@ action :remove do
     #end
 
     # removing package
-    #yum_package 'redborder-http2k' do
+    #dnf_package 'redborder-http2k' do
     #  action :remove
     #end
 
@@ -186,7 +194,7 @@ action :register do
          action :nothing
       end.run_action(:run)
 
-      node.set["http2k"]["registered"] = true
+      node.normal["http2k"]["registered"] = true
       Chef::Log.info("http2k service has been registered to consul")
     end
   rescue => e
@@ -202,7 +210,7 @@ action :deregister do
         action :nothing
       end.run_action(:run)
 
-      node.set["http2k"]["registered"] = false
+      node.normal["http2k"]["registered"] = false
       Chef::Log.info("http2k service has been deregistered to consul")
     end
   rescue => e

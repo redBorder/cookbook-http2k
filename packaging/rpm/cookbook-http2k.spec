@@ -45,6 +45,8 @@ esac
 %doc
 
 %changelog
+* Fri Sep 22 2023 Miguel Negrón <manegron@redborder.com> - 2.0.0-1
+- Remove social
 * Fri Jan 07 2022 David Vanhoucke <dvanhoucke@redborder.com> - 1.0.2-1
 - change register to consul
 * Tue Nov 16 2021 Jordi Hdez <jhernandez@redborder.com> - 1.0.1-1
