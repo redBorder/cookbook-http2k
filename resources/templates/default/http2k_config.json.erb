@@ -2,7 +2,7 @@
   "listeners":[
     {"proto":"http", "port": <%= @port %>, "num_threads":<%= [ node["cpu"]["total"].to_i - 1, 1].max %>, "mode":"epoll", "redborder_uri":true, "decode_as":"rb_http2k", "connection_memory_limit": 131072, "connection_timeout": 60, "per_ip_connection_limit": 0, "connection_limit": <%= ( [ node["cpu"]["total"].to_i - 1, 1].max*512 ) %>}
   ],
-  "brokers":"<%= @kafka_hosts %>",
+  "brokers":"<% @kafka_hosts.each do |m| %><%= m %>.node<% end %>",
   "n2kafka_id": "http2k",
   "rdkafka.socket.max.fails":"3",
   "rdkafka.socket.keepalive.enable":"true",
