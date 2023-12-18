@@ -12,7 +12,7 @@ attribute :logdir, :kind_of => String, :default => "/var/log/http2k"
 attribute :user, :kind_of => String, :default => "http2k"
 attribute :group, :kind_of => String, :default => "http2k"
 attribute :port, :kind_of => Fixnum, :default => 7980
-attribute :kafka_hosts, :kind_of => Array, :default => ["kafka.service"]
+attribute :kafka_hosts, :kind_of => Array, :default => ["127.0.0.1"]
 attribute :proxy_nodes, :kind_of => Object
 attribute :ips_nodes, :kind_of => Object
 attribute :ipsg_nodes, :kind_of => Object
