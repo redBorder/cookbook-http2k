@@ -45,6 +45,8 @@ esac
 %doc
 
 %changelog
+* Tue Jan 09 2024 Vicente Mesa <vimesa@redborder.com> - 1.0.9-1
+- Delete .node on kafka brokers
 * Mon Dec 18 2023 Vicente Mesa <vimesa@redborder.com> - 1.0.8-1
 - Fix kafka configuration on http2k service
 * Fri Jan 07 2022 David Vanhoucke <dvanhoucke@redborder.com> - 1.0.2-1
