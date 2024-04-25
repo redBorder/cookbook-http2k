@@ -54,7 +54,7 @@
         "enrichment": {
           "index_partitions": <%= [ 1, ( !p["index_partitions"].nil? ) ? p["index_partitions"].to_i : 5].max %>,
           "index_replicas": <%= [ 1, ( !p["index_replicas"].nil? ) ? p["index_replicas"].to_i : 1].max %>,
-          "sensor_uuid":  "<%= p["sensor_uuid"] %>",
+          "sensor_uuid": "<%= p["sensor_uuid"] %>",
           "sensor_name": "<%= Chef::Node.load(ips)["rbname"] %>"
           <% @locations_list.each do |loc| %>
             <% if p["locations"].key?(loc) %>
