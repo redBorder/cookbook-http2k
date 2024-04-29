@@ -138,14 +138,14 @@ action :remove do
     action :stop
   end
 
-  template_list = [
-    '/etc/http2k/config.json'
-  ]
+  # template_list = [
+  #   '/etc/http2k/config.json'
+  # ]
 
-  dir_list = [
-    '/etc/http2k',
-    logdir
-  ]
+  # dir_list = [
+  #   '/etc/http2k',
+  #   logdir
+  # ]
 
   # removing templates
   # template_list.each do |temp|
