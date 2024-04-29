@@ -75,16 +75,7 @@
           "index_partitions": <%= [ 1, ( !p["index_partitions"].nil? ) ? p["index_partitions"].to_i : 5].max %>,
           "index_replicas": <%= [ 1, ( !p["index_replicas"].nil? ) ? p["index_replicas"].to_i : 1].max %>,
           "proxy_uuid": "<%= p["sensor_uuid"] %>"
-          <%
-insert_uuid=true
-if !p["sensors_mapping"].nil?
-  p["sensors_mapping"].each do |k,v|
-    insert_uuid = false if v.size>0
-  end
-end
-
-%>
-        <% if insert_uuid %>
+        <% unless p["sensors_mapping"].nil? || p["sensors_mapping"].any? { |k, v| !v.empty? } %>
         ,"sensor_uuid": "<%= p["sensor_uuid"] %>"
         <% end %>
         <% @locations_list.each do |ss| %>
