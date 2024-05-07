@@ -1,5 +1,14 @@
-cookbook http2k CHANGELOG
-==========================
+cookbook-http2k CHANGELOG
+===============
+
+## 1.0.9
+
+  - nilsver
+    - [76f7879] refactor code
+    - [6fba6dd] deleted a space
+    - [d2b1234] added sensor_name enrichment
+    - [0d30370] add enrichment ips
+    - [0e99ae6] add enrichment proxy
 
 0.0.7
 -----
