@@ -80,4 +80,3 @@ module Http2k
     end
   end
 end
-
