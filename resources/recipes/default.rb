@@ -1,12 +1,8 @@
-#
-# Cookbook Name:: http2k
+# Cookbook:: http2k
 # Recipe:: default
-#
-# Copyright 2016, http2k
-#
-# AFFERO GENERAL PUBLIC LICENSE, Version 3
-#
+# Copyright:: 2024, redborder
+# License:: Affero General Public License, Version 3
 
-http2k_config "config" do
+http2k_config 'config' do
   action [:add, :register, :configure_certs]
 end
