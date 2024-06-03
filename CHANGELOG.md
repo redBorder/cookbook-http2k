@@ -1,6 +1,19 @@
 cookbook-http2k CHANGELOG
 ===============
 
+## 1.0.10
+
+  - Miguel Negron
+    - [43bc053] fix lint
+    - [9172f1f] lint resources
+    - [77d6cf6] lint recipes
+    - [69a4cd8] lint providers
+    - [20ee94f] lint libraries
+    - [4380d03] lint attrbiutes
+    - [2a90359] Update README.md
+    - [436663c] Update rpm.yml
+    - [a022625] Update metadata.rb
+
 ## 1.0.9
 
   - nilsver
