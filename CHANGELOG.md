@@ -1,6 +1,11 @@
 cookbook-http2k CHANGELOG
 ===============
 
+## 1.0.11
+
+  - Miguel Alvarez
+    - [34f8422] Fix ssl certs
+
 ## 1.0.10
 
   - Miguel Negron
