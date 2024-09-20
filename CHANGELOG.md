@@ -1,6 +1,15 @@
 cookbook-http2k CHANGELOG
 ===============
 
+## 1.1.0
+
+  - Miguel Negrón
+    - [2c472e6] Merge pull request #21 from redBorder/bugfix/#13550_restrain_user_permissions
+  - Miguel Negron
+    - [98474ee] Merge branch 'development' into bugfix/#13550_restrain_user_permissions
+  - Luis Blanco
+    - [c0e0f7f] nologin permission to user
+
 ## 1.0.11
 
   - Miguel Alvarez
