@@ -23,6 +23,9 @@ chmod -R 0755 %{buildroot}/var/chef/cookbooks/http2k
 install -D -m 0644 README.md %{buildroot}/var/chef/cookbooks/http2k/README.md
 
 %pre
+if [ -d /var/chef/cookbooks/rb-common ]; then
+    rm -rf /var/chef/cookbooks/rb-common
+fi
 
 %post
 case "$1" in
@@ -36,6 +39,12 @@ case "$1" in
   ;;
 esac
 
+%postun
+# Deletes directory when uninstall the package
+if [ "$1" = 0 ] && [ -d /var/chef/cookbooks/rb-common ]; then
+  rm -rf /var/chef/cookbooks/rb-common
+fi
+
 %files
 %attr(0755,root,root)
 /var/chef/cookbooks/http2k
@@ -45,6 +54,8 @@ esac
 %doc
 
 %changelog
+* Thu Oct 10 2024 Miguel Negrón <manegron@redborder.com>
+- Add pre and postun
 * Tue Jan 09 2024 Vicente Mesa <vimesa@redborder.com> - 1.0.9-1
 - Delete .node on kafka brokers
 * Mon Dec 18 2023 Vicente Mesa <vimesa@redborder.com> - 1.0.8-1
