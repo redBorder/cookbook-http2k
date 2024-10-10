@@ -1,6 +1,11 @@
 cookbook-http2k CHANGELOG
 ===============
 
+## 1.1.2
+
+  - Miguel Negrón
+    - [0d2e5a9] Fix spec file
+
 ## 1.1.1
 
   - Miguel Negrón
