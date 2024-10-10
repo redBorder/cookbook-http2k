@@ -1,11 +1,16 @@
 cookbook-http2k CHANGELOG
 ===============
 
+## 1.1.1
+
+  - Miguel Negrón
+    - [f93e8a3] Add pre and postun to clean the cookbook
+
 ## 1.1.0
 
   - Miguel Negrón
     - [2c472e6] Merge pull request #21 from redBorder/bugfix/#13550_restrain_user_permissions
-  - Miguel Negron
+  - Miguel Negrón
     - [98474ee] Merge branch 'development' into bugfix/#13550_restrain_user_permissions
   - Luis Blanco
     - [c0e0f7f] nologin permission to user
@@ -17,7 +22,7 @@ cookbook-http2k CHANGELOG
 
 ## 1.0.10
 
-  - Miguel Negron
+  - Miguel Negrón
     - [43bc053] fix lint
     - [9172f1f] lint resources
     - [77d6cf6] lint recipes
