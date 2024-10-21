@@ -17,3 +17,4 @@ attribute :ipsg_nodes, kind_of: Object
 attribute :ipscp_nodes, kind_of: Object
 attribute :organizations, kind_of: Array
 attribute :locations_list, kind_of: Array
+attribute :hosts, kind_of: Array

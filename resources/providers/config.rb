@@ -73,6 +73,7 @@ end
 
 action :add_http2k_conf_nginx do
   begin
+    hosts = new_resource.hosts
     port = new_resource.port
 
     service 'nginx' do
@@ -87,7 +88,7 @@ action :add_http2k_conf_nginx do
       group 'nginx'
       mode '0644'
       cookbook 'http2k'
-      variables(http2k_port: port)
+      variables(http2k_hosts: hosts, http2k_port: port)
       notifies :restart, 'service[nginx]'
     end
 
