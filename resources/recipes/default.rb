@@ -4,5 +4,5 @@
 # License:: Affero General Public License, Version 3
 
 http2k_config 'config' do
-  action [:add, :register, :configure_certs]
+  action [:add, :register]
 end

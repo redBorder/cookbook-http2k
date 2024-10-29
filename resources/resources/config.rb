@@ -1,7 +1,7 @@
 # Cookbook:: http2k
 # Resource:: config
 
-actions :add, :remove, :register, :deregister, :configure_certs, :add_http2k_conf_nginx
+actions :add, :remove, :register, :deregister
 default_action :add
 
 attribute :domain, kind_of: String, default: 'redborder.cluster'
