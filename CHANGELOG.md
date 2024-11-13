@@ -1,6 +1,15 @@
 cookbook-http2k CHANGELOG
 ===============
 
+## 1.2.0
+
+  - Miguel Negrón
+    - [d65ba78] Merge pull request #25 from redBorder/bugfix/#19144_missing_nginx_confd_files
+  - David Vanhoucke
+    - [3e63d53] remove files if service disabled
+  - Miguel Negron
+    - [fcf0ac6] Add balancing
+
 ## 1.1.2
 
   - Miguel Negrón
