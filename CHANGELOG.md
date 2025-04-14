@@ -1,6 +1,11 @@
 cookbook-http2k CHANGELOG
 ===============
 
+## 1.3.0
+
+  - David Vanhoucke
+    - [650bd05] update broker to work with sync network
+
 ## 1.2.0
 
   - Miguel Negrón
