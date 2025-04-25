@@ -15,6 +15,8 @@ attribute :proxy_nodes, kind_of: Object
 attribute :ips_nodes, kind_of: Object
 attribute :ipsg_nodes, kind_of: Object
 attribute :ipscp_nodes, kind_of: Object
+attribute :intrusion_nodes, kind_of: Object
+attribute :intrusioncp_nodes, kind_of: Object
 attribute :organizations, kind_of: Array
 attribute :locations_list, kind_of: Array
 attribute :hosts, kind_of: Array
