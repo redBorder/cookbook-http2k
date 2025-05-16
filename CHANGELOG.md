@@ -1,6 +1,11 @@
 cookbook-http2k CHANGELOG
 ===============
 
+## 1.4.0
+
+  - Miguel Alvarez
+    - [1914d4a] add intrusion & intrusion cp nodes
+
 ## 1.3.0
 
   - David Vanhoucke
