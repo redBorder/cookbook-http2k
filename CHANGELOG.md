@@ -1,6 +1,11 @@
 cookbook-http2k CHANGELOG
 ===============
 
+## 1.4.1
+
+  - nilsver
+    - [7ee2582] remove flush cache
+
 ## 1.4.0
 
   - Miguel Alvarez
