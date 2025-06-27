@@ -22,7 +22,6 @@ action :add do
     # install package
     dnf_package 'redborder-http2k' do
       action :upgrade
-      flush_cache [ :before ]
     end
 
     execute 'create_user' do
