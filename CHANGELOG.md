@@ -1,6 +1,11 @@
 cookbook-http2k CHANGELOG
 ===============
 
+## 1.5.0
+
+  - Jose Jimenez
+    - [e17f46e] feat: add suport for rb_trap kafka topic
+
 ## 1.4.1
 
   - nilsver
