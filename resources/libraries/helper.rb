@@ -48,6 +48,8 @@ module Http2k
             'bind' => '0.0.0.0',
             'port' => port,
             'mode' => 'json',
+            # bodies are whole kafka2x batches, x2kafka defaults to 64KB
+            'max_msg_size' => 16 * 1024 * 1024,
             'enrichment_key' => 'sensor_uuid',
             'enrichment_map' => enrichment_map,
           },
