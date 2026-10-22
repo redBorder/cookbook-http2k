@@ -21,6 +21,7 @@ action :add do
     # http2k now runs the x2kafka binary, /etc/systemd/system/http2k.service overrides the old package unit
     dnf_package 'x2kafka' do
       action :upgrade
+      notifies :restart, 'service[http2k]', :delayed
     end
 
     # x2kafka ships its own unit, it would bind the same port as http2k
