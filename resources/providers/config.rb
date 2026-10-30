@@ -23,6 +23,12 @@ action :add do
       action :upgrade
     end
 
+    # restart http2k when a new x2kafka is installed
+    dnf_package 'x2kafka' do
+      action :upgrade
+      notifies :restart, 'service[http2k]', :delayed
+    end
+
     execute 'create_user' do
       command "/usr/sbin/useradd #{user} -s /sbin/nologin"
       ignore_failure true
