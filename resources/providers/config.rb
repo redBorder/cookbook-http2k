@@ -18,18 +18,9 @@ action :add do
     intrusioncp_nodes = new_resource.intrusioncp_nodes
     locations_list = new_resource.locations_list
 
-    # http2k now runs the x2kafka binary, /etc/systemd/system/http2k.service overrides the old package unit
-    dnf_package 'x2kafka' do
+    # install package
+    dnf_package 'redborder-http2k' do
       action :upgrade
-      notifies :restart, 'service[http2k]', :delayed
-    end
-
-    # x2kafka ships its own unit, it would bind the same port as http2k
-    service 'x2kafka' do
-      service_name 'x2kafka'
-      ignore_failure true
-      supports status: true, enable: true
-      action [:stop, :disable]
     end
 
     execute 'create_user' do
@@ -60,22 +51,6 @@ action :add do
       variables(config: x2kafka_config(port, kafka_hosts, proxy_nodes,
                                        [ips_nodes, ipsg_nodes, ipscp_nodes, intrusion_nodes, intrusioncp_nodes],
                                        locations_list))
-      notifies :restart, 'service[http2k]', :delayed
-    end
-
-    execute 'http2k_daemon_reload' do
-      command 'systemctl daemon-reload'
-      action :nothing
-    end
-
-    template '/etc/systemd/system/http2k.service' do
-      source 'http2k.service.erb'
-      cookbook 'http2k'
-      owner 'root'
-      group 'root'
-      mode '0644'
-      variables(user: user, group: group)
-      notifies :run, 'execute[http2k_daemon_reload]', :immediately
       notifies :restart, 'service[http2k]', :delayed
     end
 
