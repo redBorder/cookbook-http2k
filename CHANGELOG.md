@@ -1,6 +1,11 @@
 cookbook-http2k CHANGELOG
 ===============
 
+## 1.6.0
+
+  - Juan Soto
+    - [935fc55] Improvement/#26935 use x2kafka and kafka2x in the services (#35)
+
 ## 1.5.1
 
   - manegron
